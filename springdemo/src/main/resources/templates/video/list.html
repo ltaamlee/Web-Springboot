@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách Video</title>
+</head>
+<body>
+<h2>Danh sách Video</h2>
+
+<form th:action="@{/videos}" method="get">
+    <input type="text" name="search" placeholder="Tìm kiếm title">
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<a th:href="@{/videos/new}">Thêm mới Video</a>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>URL</th>
+            <th>User ID</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="video : ${videos}">
+            <td th:text="${video.videoId}"></td>
+            <td th:text="${video.title}"></td>
+            <td th:text="${video.url}"></td>
+            <td th:text="${video.user.id}"></td>
+            <td>
+                <a th:href="@{/videos/edit/{id}(id=${video.videoId})}">Sửa</a> |
+                <a th:href="@{/videos/delete/{id}(id=${video.videoId})}" 
+                   onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
+            </td>
+        </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" th:href="@{/home}">🌸 LTaam!</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li th:if="${account != null}" class="nav-item me-2 d-flex align-items-center">
+                    <span class="text-dark">Xin chào, <strong th:text="${account.userName}">User</strong></span>
+                </li>
+                <li th:if="${account != null}" class="nav-item">
+                    <a class="btn btn-outline-primary" th:href="@{/logout}">Đăng xuất</a>
+                </li>
+                <li th:if="${account == null}" class="nav-item me-2">
+                    <a class="btn btn-outline-primary" th:href="@{/login}">Đăng nhập</a>
+                </li>
+                <li th:if="${account == null}" class="nav-item">
+                    <a class="btn btn-primary" th:href="@{/register}">Đăng ký</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow-1 d-flex justify-content-center align-items-center">
+    <div class="card shadow-lg border-0 rounded-4 p-4 text-center" style="max-width: 500px; width: 100%;">
+        <h1 class="mb-3 text-primary">Chào mừng đến với WebThuViet!</h1>
+        <p class="lead" th:if="${account != null}">
+            Rất vui được gặp bạn, <strong th:text="${account.userName}">User</strong> 🎉
+        </p>
+        <p class="text-muted" th:if="${account == null}">
+            Vui lòng đăng nhập hoặc đăng ký để trải nghiệm đầy đủ tính năng.
+        </p>
+    </div>
+</main>
+
+<footer class="bg-light border-top py-3 mt-auto">
+    <div class="container text-center">
+        <small class="text-muted">&copy; 2025 LTaam!. All rights reserved.</small>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
