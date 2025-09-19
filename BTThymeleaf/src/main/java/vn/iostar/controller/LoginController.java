@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import vn.iostar.entity.User;
 import vn.iostar.service.UserService;
 
@@ -26,19 +27,21 @@ public class LoginController {
     public String loginSubmit(
             @RequestParam String username,
             @RequestParam String password,
+            HttpSession session,
             Model model) {
 
-        Optional<User> user = userService.login(username, password);
+        Optional<User> userOpt = userService.login(username, password);
 
-        if (user.isPresent()) {
-            User u = user.get();
-            model.addAttribute("user", u);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
 
-            switch (u.getRoleid()) {
+            session.setAttribute("userId", user.getId());
+
+            switch (user.getRoleid()) {
                 case "admin":
-                    return "redirect:/admin/layout-admin";
+                    return "redirect:/admin/dashboard";
                 case "staff":
-                    return "redirect:/staff/layout-staff";
+                    return "redirect:/staff/dashboard";
                 default:
                     return "redirect:/";
             }
@@ -46,5 +49,11 @@ public class LoginController {
             model.addAttribute("error", "Sai tài khoản hoặc mật khẩu!");
             return "web/login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 }

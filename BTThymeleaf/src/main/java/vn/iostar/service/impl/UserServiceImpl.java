@@ -19,4 +19,19 @@ public class UserServiceImpl implements UserService{
     public Optional<User> login(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }
+    
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+    
+    @Override
+    public Optional<User> findById(String userId) {
+        return userRepository.findById(userId);
+    }
 }

@@ -9,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import vn.iostar.entity.Category;
 import vn.iostar.repository.CategoryRepository;
 import vn.iostar.service.CategoryService;
@@ -68,5 +71,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Page<Category> findByNameContaining(String name, Pageable pageable) {
         return categoryRepository.findByCateNameContaining(name, pageable);
+    }
+    
+    
+    @PersistenceContext
+    private EntityManager em;
+    
+    @Override
+    @Transactional
+    public void resetIdentity() {
+        em.createNativeQuery("DBCC CHECKIDENT ('Categories', RESEED, 0)").executeUpdate();
     }
 }

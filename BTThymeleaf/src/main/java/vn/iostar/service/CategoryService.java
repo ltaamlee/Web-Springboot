@@ -40,4 +40,6 @@ public interface CategoryService {
 
     // Tìm kiếm theo tên có phân trang
     Page<Category> findByNameContaining(String name, Pageable pageable);
+
+	void resetIdentity();
 }

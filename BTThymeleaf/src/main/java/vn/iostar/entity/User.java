@@ -34,4 +34,15 @@ public class User {
 		return roleId;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+	
+    public String getImg() { return img; }
+    public void setImg(String img) { this.img = img; }
+
+	public String getId() {
+		return userId;
+	}
+
 }

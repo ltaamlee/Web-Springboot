@@ -4,46 +4,42 @@
       layout:decorate="~{admin/layout-admin.html}">
 <section class="row" layout:fragment="content">
     <div class="col-6 offset-3 mt-4">
-        <form th:action="@{/admin/categories/saveOrUpdate}" method="POST" th:object="${category}">
+        <form th:action="@{/admin/categories/saveOrUpdate}" 
+              method="POST" 
+              th:object="${category}" 
+              enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header">
-                    <h2 th:text="${category.isEdit} ? 'Edit Category' : 'Add New Category'">
-                        Add New Category
+                    <h2 th:text="${category.cateId != null} ? 'Edit Category' : 'Add New Category'">
+                        Thêm danh mục
                     </h2>
                 </div>
                 <div class="card-body">
-                    <!-- Category ID (readonly khi edit) -->
-                    <div class="mb-3" th:if="${category.isEdit}">
-                        <label for="categoryId" class="form-label">Category ID:</label>
-                        <input type="hidden" th:field="*{isEdit}">
-                        <input type="text" readonly class="form-control"
-                               th:field="*{categoryId}" id="categoryId" name="categoryId"
-                               placeholder="Category Id">
-                        <div th:if="${#fields.hasErrors('categoryId')}" class="form-text text-danger">
-                            Category ID is required!
-                        </div>
+
+                    <div class="mb-3" th:if="${category.cateId != null}">
+                        <label for="cateId" class="form-label">Category ID:</label>
+                        <input type="text" readonly class="form-control" th:field="*{cateId}" id="cateId">
                     </div>
 
                     <!-- Category Name -->
                     <div class="mb-3">
-                        <label for="name" class="form-label">Category Name:</label>
-                        <input type="text" class="form-control" th:field="*{name}" id="name" name="name"
-                               placeholder="Category Name">
-                        <div th:if="${#fields.hasErrors('name')}" class="form-text text-danger">
-                            Category Name is required!
-                        </div>
+                        <label for="cateName" class="form-label">Tên danh mục:</label>
+                        <input type="text" class="form-control" th:field="*{cateName}" id="cateName" placeholder="Category Name">
                     </div>
 
-                    <!-- Image URL -->
+                    <!-- Image Upload -->
                     <div class="mb-3">
-                        <label for="img" class="form-label">Image URL:</label>
-                        <input type="text" class="form-control" th:field="*{img}" id="img" name="img"
-                               placeholder="Image URL">
+                        <label for="img" class="form-label">Ảnh:</label>
+                        <input type="file" class="form-control" id="img" name="file">
+                        <div th:if="${category.img != null}">
+                            <p>Ảnh hiện tại:</p>
+                            <img th:src="@{${category.img}}" alt="Category Image" width="100"/>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-end">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a th:href="@{/admin/categories}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                    <a th:href="@{/admin/categories/list}" class="btn btn-secondary">Hủy</a>
                 </div>
             </div>
         </form>

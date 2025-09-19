@@ -2,13 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     <div th:fragment="sidebar" class="sidebar">
-        <h4 class="text-center text-white">Admin Panel</h4>
+        <div class="text-center my-3">
+            <img th:src="@{/images/logo.png}" alt="Logo" 
+                 class="img-fluid rounded-circle" style="width:100px; height:100px; object-fit:cover;">
+            <h5 class="mt-2 text-white">Admin</h5>
+        </div>
         <hr class="bg-light">
+
         <a th:href="@{#}"><i class="fa fa-home me-2"></i> Dashboard</a>
-        <a th:href="@{/admin/categories/list}"><i class="fa fa-list me-2"></i> Quản lý Categories</a>
-        <a th:href="@{/admin/product/list}"><i class="fa fa-box me-2"></i> Quản lý Products</a>
-        <a th:href="@{/admin/customer/list}"><i class="fa fa-users me-2"></i> Quản lý Customers</a>
-        <a th:href="@{/admin/order/list}"><i class="fa fa-shopping-cart me-2"></i> Quản lý Orders</a>
+        <a th:href="@{/admin/categories/list}"><i class="fa fa-list me-2"></i> Quản lý Danh mục</a>
+        <a th:href="@{/admin/product/list}"><i class="fa fa-box me-2"></i> Quản lý Sản phẩm</a>
+        <a th:href="@{/admin/customer/list}"><i class="fa fa-users me-2"></i> Quản lý khách hàng</a>
+        <a th:href="@{/admin/order/list}"><i class="fa fa-shopping-cart me-2"></i> Quản lý đơn hàng</a>
+        <a th:href="@{/admin/profile}"><i class="fa fa-user me-2"></i> Profile</a>
         <a th:href="@{/logout}"><i class="fa fa-sign-out-alt me-2"></i> Đăng xuất</a>
     </div>
 </body>
