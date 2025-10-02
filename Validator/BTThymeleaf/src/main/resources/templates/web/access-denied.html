@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            width: 400px;
+        }
+        h1 {
+            color: #e84118;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-dashboard {
+            background-color: #273c75;
+            color: white;
+        }
+        .btn-dashboard:hover {
+            background-color: #192a56;
+        }
+        .btn-login {
+            background-color: #44bd32;
+            color: white;
+        }
+        .btn-login:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🚫 Truy cập bị từ chối</h1>
+    <p th:text="${message}">Bạn không có quyền truy cập chức năng này.</p>
+
+    <!-- Nếu có role thì hiện nút quay về dashboard -->
+    <div th:switch="${session.role}">
+        <a th:case="'ADMIN'" class="btn btn-dashboard" th:href="@{/admin/dashboard}">Về Admin Dashboard</a>
+        <a th:case="'USER'" class="btn btn-dashboard" th:href="@{/user/dashboard}">Về User Home</a>
+        <a th:case="*"
+           class="btn btn-login"
+           th:href="@{/login}">Đăng nhập lại</a>
+    </div>
+</div>
+</body>
+</html>

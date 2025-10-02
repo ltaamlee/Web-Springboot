@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="sidebar" class="sidebar">
+        <div class="text-center my-3">
+            <img th:src="@{/images/logo.png}" alt="Logo" 
+                 class="img-fluid rounded-circle" style="width:100px; height:100px; object-fit:cover;">
+            <h5 class="mt-2 text-white">User</h5>
+        </div>
+        <hr class="bg-light">
+
+        <a th:href="@{#}"><i class="fa fa-home me-2"></i> Dashboard</a>
+        <a th:href="@{/user/categories/list}"><i class="fa fa-list me-2"></i> Quản lý Danh mục</a>
+        <a th:href="@{/user/profile}"><i class="fa fa-user me-2"></i> Profile</a>
+        <a th:href="@{/logout}"><i class="fa fa-sign-out-alt me-2"></i> Đăng xuất</a>
+    </div>
+</body>
+</html>

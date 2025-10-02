@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-admin.html}">
+<head>
+    <title>Category List</title>
+</head>
+<style>
+.category-img {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+}
+</style>
+<body>
+
+
+
+<section class="row" layout:fragment="content">
+    <div class="col-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>Danh sách Categories</h4>
+                <a th:href="@{/admin/categories/add}" class="btn btn-success btn-sm float-end">Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <!-- Hiện thông báo -->
+                <div th:if="${message != null}" class="alert alert-primary" role="alert">
+                    <i th:text="${message}"></i>
+                </div>
+
+                <!-- Bảng danh sách Category -->
+                <table class="table table-striped table-responsive">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Category</th>
+                            <th>Ảnh</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="c : ${categories}">
+                            <td th:text="${c.cateId}">ID</td>
+                            <td th:text="${c.cateName}">Category Name</td>
+                            <td>
+                                <img th:src="@{${c.img}}" alt="image" width="100"/>
+                            </td>
+                            <td>
+                                <a th:href="@{'/admin/categories/edit/' + ${c.cateId}}" class="btn btn-warning btn-sm">Sửa</a>
+                                <a th:href="@{'/admin/categories/delete/' + ${c.cateId}}"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Phân trang -->
+                <nav th:if="${totalPages > 1}">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                            <a class="page-link" th:href="@{|/admin/categories/list?page=${currentPage-1}|}">Prev</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages-1)}"
+                            th:classappend="${i == currentPage} ? 'active'">
+                            <a class="page-link" th:href="@{|/admin/categories/list?page=${i}|}" th:text="${i+1}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage == totalPages-1} ? 'disabled'">
+                            <a class="page-link" th:href="@{|/admin/categories/list?page=${currentPage+1}|}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-admin.html}">
+<section class="row" layout:fragment="content">
+    <div class="col-6 offset-3 mt-4">
+        <form th:action="@{/admin/categories/saveOrUpdate}" 
+              method="POST" 
+              th:object="${category}" 
+              enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <h2 th:text="${category.cateId != null} ? 'Edit Category' : 'Add New Category'">
+                        Thêm danh mục
+                    </h2>
+                </div>
+                <div class="card-body">
+
+                    <div class="mb-3" th:if="${category.cateId != null}">
+                        <label for="cateId" class="form-label">Category ID:</label>
+                        <input type="text" readonly class="form-control" th:field="*{cateId}" id="cateId">
+                    </div>
+
+                    <!-- Category Name -->
+                    <div class="mb-3">
+                        <label for="cateName" class="form-label">Tên danh mục:</label>
+                        <input type="text" class="form-control" th:field="*{cateName}" id="cateName" placeholder="Category Name">
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-3">
+                        <label for="img" class="form-label">Ảnh:</label>
+                        <input type="file" class="form-control" id="img" name="file">
+                        <div th:if="${category.img != null}">
+                            <p>Ảnh hiện tại:</p>
+                            <img th:src="@{${category.img}}" alt="Category Image" width="100"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                    <a th:href="@{/admin/categories/list}" class="btn btn-secondary">Hủy</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+</html>
